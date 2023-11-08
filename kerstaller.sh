@@ -31,12 +31,12 @@ method-image(){
   apt update -y
   apt install -y linux-image-$custom_kernel_ver linux-headers-$custom_kernel_ver linux-modules-$custom_kernel_ver
   if [ $? -eq 0 ]; then
-    # Запретить TUI промпты
-    export DEBIAN_FRONTEND=noninteractive 
+  # Запретить TUI промпты
+  #  export DEBIAN_FRONTEND=noninteractive 
   # Удаляет старые версии ядра, оставляет только установленную версию и последнее пакеты HWE    
-   yes | dpkg -l | grep "linux-image-.*-*" | grep -v "$custom_kernel_ver" | awk '{print $2}' | xargs apt-get purge -y
-    yes | dpkg -l | grep "linux-headers-.*-*" | grep -v "$custom_kernel_ver" | awk '{print $2}' | xargs apt-get purge -y
-    yes | dpkg -l | grep "linux-modules-.*-*" | grep -v "$custom_kernel_ver" | awk '{print $2}' | xargs apt-get purge -y
+  # yes | dpkg -l | grep "linux-image-.*-*" | grep -v "$custom_kernel_ver" | awk '{print $2}' | xargs apt-get purge -y
+  # yes | dpkg -l | grep "linux-headers-.*-*" | grep -v "$custom_kernel_ver" | awk '{print $2}' | xargs apt-get purge -y
+  # yes | dpkg -l | grep "linux-modules-.*-*" | grep -v "$custom_kernel_ver" | awk '{print $2}' | xargs apt-get purge -y
   echo "[+] Ядро версии $custom_kernel_ver успешно установлено и устаревшие версии удалены. Перезапусти компьютер для применения изменений."
   update-grub && apt-get autoremove -y && apt-get clean -y 
   echo && echo "[!] Сделай бэкап перед перезагрузкой" && sleep 1 && exit 1 
